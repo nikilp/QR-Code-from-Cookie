@@ -1,0 +1,52 @@
+<head>
+<link rel="shortcut icon" href="#" />
+<style>
+.center { 
+  height:90vh;
+  position: relative;
+}
+
+.center a {
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  color: grey;
+}
+
+.gray {
+  color: grey;
+}
+</style>
+
+</head>
+<p><a href="/" class="gray">Change Machine ID</a></p>
+<div class="center"><a id="qrcode"></a></div>
+
+<script src="qrcode.js"></script>
+<script type="text/javascript">
+
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+function eraseCookie(name) {   
+    document.cookie = name+'=; Max-Age=-99999999;';  
+}
+
+var x = getCookie('machineId');
+if (x) {
+    new QRCode(document.getElementById("qrcode"), document.location.href + x);
+}
+
+
+</script>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="#" />
+<style>
+.center { 
+  height:90vh;
+  position: relative;
+}
+
+.center a {
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  color: grey;
+}
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid gray;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="center">
+<a>
+
+<h2>Machine ID is:</h2>
+<div id="currentMachineId"></div>
+<h2>Set Machine ID</h2>
+
+<form id="setCookieForm" onsubmit="return getMachineId();">
+  <input name="size" type="text" id="machineId">
+  <br><br>
+  <input type="submit">
+</form>
+
+</a>
+</div>
+
+</body>
+
+<script>
+
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+
+function setCookie(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+
+function eraseCookie(name) {   
+    document.cookie = name+'=; Max-Age=-99999999;';  
+}
+
+document.getElementById("setCookieForm").onsubmit = 
+    function getMachineId() {
+        var machineId = document.getElementById("machineId").value;
+        if (machineId === "") {
+            eraseCookie("machineId");
+            location.reload();
+        } else {
+            setCookie("machineId", machineId, 1000000);
+            window.location.replace("/qr.html");
+        }
+        return false;
+    }
+
+machineIdCookie = getCookie("machineId");
+if (machineIdCookie === null) {
+    document.getElementById("currentMachineId").innerHTML = "undefined";
+    document.getElementById("currentMachineId").style.color = "LightSalmon";
+} else {
+    document.getElementById("currentMachineId").innerHTML = machineIdCookie;
+}
+</script>
+</html>
