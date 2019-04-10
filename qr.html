@@ -45,7 +45,8 @@ function eraseCookie(name) {
 
 var x = getCookie('machineId');
 if (x) {
-    new QRCode(document.getElementById("qrcode"), document.location.href + x);
+    var urlBase = location.href.substring(0, location.href.lastIndexOf("/")+1)
+    new QRCode(document.getElementById("qrcode"), urlBase + x);
 }
 
 
