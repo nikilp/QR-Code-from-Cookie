@@ -106,17 +106,26 @@ input.addEventListener('input', evt => {
   if (!value) {
     input.dataset.state = ''
     document.getElementById("submitBtn").value= "Clear";
+    document.getElementById("submitBtn").disabled = false;
     return
   }
+  
+  if (input.dataset.state === undefined && machineIdCookie == null) {
+    document.getElementById("submitBtn").value = "Cleared";
+    document.getElementById("submitBtn").disabled = true;
+  }
+
   
   const trimmed = value.trim()
   
   if (trimmed) {
     input.dataset.state = 'valid';
     document.getElementById("submitBtn").value= "Change";
+    document.getElementById("submitBtn").disabled = false;
   } else {
     input.dataset.state = 'invalid';
     document.getElementById("submitBtn").value= "Clear";
+    document.getElementById("submitBtn").disabled = false;
   }
 })
                                                        
