@@ -110,12 +110,6 @@ input.addEventListener('input', evt => {
     return
   }
   
-  if (input.dataset.state === undefined && machineIdCookie == null) {
-    document.getElementById("submitBtn").value = "Cleared";
-    document.getElementById("submitBtn").disabled = true;
-  }
-
-  
   const trimmed = value.trim()
   
   if (trimmed) {
@@ -128,6 +122,11 @@ input.addEventListener('input', evt => {
     document.getElementById("submitBtn").disabled = false;
   }
 })
-                                                       
+
+if (input.dataset.state === undefined && machineIdCookie == null) {
+  document.getElementById("submitBtn").value = "Cleared";
+  document.getElementById("submitBtn").disabled = true;
+}
+
 </script>
 </html>
