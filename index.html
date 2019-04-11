@@ -97,5 +97,28 @@ if (machineIdCookie === null) {
 } else {
     document.getElementById("currentMachineId").innerHTML = machineIdCookie;
 }
+                                              
+const input = document.querySelector('#machineId')
+
+input.addEventListener('input', evt => {
+  const value = input.value
+  
+  if (!value) {
+    input.dataset.state = ''
+    document.getElementById("submitBtn").value= "Clear";
+    return
+  }
+  
+  const trimmed = value.trim()
+  
+  if (trimmed) {
+    input.dataset.state = 'valid';
+    document.getElementById("submitBtn").value= "Change";
+  } else {
+    input.dataset.state = 'invalid';
+    document.getElementById("submitBtn").value= "Clear";
+  }
+})
+                                                       
 </script>
 </html>
