@@ -102,11 +102,17 @@ const input = document.querySelector('#machineId')
 
 input.addEventListener('input', evt => {
   const value = input.value
+  const submitBtn = document.getElementById("submitBtn")
   
   if (!value) {
     input.dataset.state = ''
-    document.getElementById("submitBtn").value= "Clear";
-    document.getElementById("submitBtn").disabled = false;
+    if (machineIdCookie == null) {
+      submitBtn.value = "Cleared";
+      submitBtn.disabled = true;
+    } else {
+      submitBtn.value= "Clear";
+      submitBtn.disabled = false;
+    }
     return
   }
   
@@ -114,18 +120,19 @@ input.addEventListener('input', evt => {
   
   if (trimmed) {
     input.dataset.state = 'valid';
-    document.getElementById("submitBtn").value= "Change";
-    document.getElementById("submitBtn").disabled = false;
+    submitBtn.value= "Change";
+    submitBtn.disabled = false;
   } else {
     input.dataset.state = 'invalid';
-    document.getElementById("submitBtn").value= "Clear";
-    document.getElementById("submitBtn").disabled = false;
+    submitBtn.value= "Clear";
+    submitBtn.disabled = false;
+    submitBtn.disabled = true;
   }
 })
 
 if (input.dataset.state === undefined && machineIdCookie == null) {
-  document.getElementById("submitBtn").value = "Cleared";
-  document.getElementById("submitBtn").disabled = true;
+  submitBtn.value = "Cleared";
+  submitBtn.disabled = true;
 }
 
 </script>
